@@ -20,5 +20,5 @@ function [region]=Determine_quantizer(m, S, N)
     temp_region = temp_region(2:j-1);
     temp_region_2 = 2 * m - temp_region;
     
-    region = [0 temp_region_2(end:-1:1) temp_region 1.2];
+    region = [-inf temp_region_2(end:-1:1) temp_region inf];
 end
