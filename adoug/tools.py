@@ -5,34 +5,7 @@
     fileOverview: 各种分析数据的小工具
 '''
 
-import numpy as np
 from math import log
-import matplotlib.mlab as mlab
-import matplotlib.pyplot as plt
-
-import normalFit as dataProcess
-
-
-def draw(path):
-    '''
-    @fn 绘制离散数据的直方图
-    @param path:string 数据文件路径
-    '''
-    ipt = dataProcess._readIpt(path)
-    a, dataSet, o = dataProcess.filterIpt(r'\d+', ipt)
-    pointSet = np.array(dataSet)
-    u, sigma = dataProcess.estimateNormal(dataSet)
-    n, bins, patches = plt.hist(pointSet, 100, normed=1, facecolor='green', alpha=0.5)
-    y = mlab.normpdf(bins, u, sigma)
-    y = np.add.accumulate(pointSet)
-    plt.plot(bins, y, 'r--')
-    plt.xlabel('Difference between IPI and average')
-    plt.ylabel('Probability')
-    plt.title(r'Histogram of difference: $\mu=0$, $\sigma=40$')
-    plt.show()
-
-# draw('../data/input/edb/RR_e0113_MLIII_normalFit.txt')
-
 
 def calShannonEnt(dataSet):
     '''@fn 计算香农熵'''

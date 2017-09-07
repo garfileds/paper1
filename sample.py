@@ -60,6 +60,6 @@ def getGI_other(rr1File, rr2File, record1, record2):
   with open('data/sample/gi_other_%s_%s.txt' % (record1, record2), 'w') as f:
     f.write(''.join(result))
 
-getGG('data/rr/RR_e0103_MLIII_normalFit.txt', 'data/rr/RR_e0103_V4_normalFit.txt', 'e0103')
-getGI_G('data/rr/RR_e0103_MLIII_normalFit.txt', 'data/rr/RR_e0103_V4_normalFit.txt', 'e0103')
-getGI_other('data/rr/RR_e0103_MLIII_normalFit.txt', 'data/rr/RR_e0123_MLIII_normalFit.txt', 'e0103', 'e0123')
+getGG('data/rr/RR_e0202_MLI_normalFit.txt', 'data/rr/RR_e0202_V5_normalFit.txt', 'e0202')
+# getGI_G('data/rr/RR_e0103_MLIII_normalFit.txt', 'data/rr/RR_e0103_V4_normalFit.txt', 'e0103')
+# getGI_other('data/rr/RR_e0103_MLIII_normalFit.txt', 'data/rr/RR_e0123_MLIII_normalFit.txt', 'e0103', 'e0123')
