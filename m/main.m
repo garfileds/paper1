@@ -1,5 +1,5 @@
-% 求g的pdf：MLEstimate
-data_g_raw = textread('../data/rr/RR_e0202_MLI_normalFit.txt', '%d', 'delimiter', '\n');
+% 脟贸g碌脛pdf拢潞MLEstimate
+data_g_raw = textread('../data/rr/RR_e0103_MLIII_normalFit.txt', '%d', 'delimiter', '\n');
 % data_g_raw = textread('D:/Research/Project/paper1/data/rr/RR_e0108_MLIII_normalFit.txt', '%d', 'delimiter', '\n');
 data_g = data_g_raw / 1000;
 
@@ -9,18 +9,18 @@ S_g = param_g(2);
 
 % [m_g, S_g] = Gaussian_ML_estimate(data_g');
 
-% 参数：确定quantizer N=4/8/16/32/64
+% 虏脦脢媒拢潞脠路露篓quantizer N=4/8/16/32/64
 N = 32;
 N_b = log2(N);
 
-num_key = 255; % 根据BCH码的有效编码长度来定：(204, 80, 37)/(255, 131, 37)
+num_key = 255; % 赂霉戮脻BCH脗毛碌脛脫脨脨搂卤脿脗毛鲁陇露脠脌麓露篓拢潞(204, 80, 37)/(255, 131, 37)
 num_ipi = ceil(num_key / N_b);
-num_coder_capacity = 7; % BCH码的纠错能力
+num_coder_capacity = 7; % BCH脗毛碌脛戮脌麓铆脛脺脕娄
 
 region = Determine_quantizer(m_g, S_g, N);
 
-% 求（g, g'）的pdf：Parzen Guassian
-[X_g1, X_g2] = textread('../data/sample/gi_other_e0103_e0123.txt', '%d %d', 'delimiter', '\n');
+% 脟贸拢篓g, g'拢漏碌脛pdf拢潞Parzen Guassian
+[X_g1, X_g2] = textread('../data/sample/gg_e0103.txt', '%d %d', 'delimiter', '\n');
 X = [X_g1 X_g2] / 1000;
 % 
 % h1 = 0.001;
@@ -37,7 +37,7 @@ X = [X_g1 X_g2] / 1000;
 % 
 % pdf_gg_reshape = reshape(pdf_gg, length(grid_g1), length(grid_g2));
 
-% 求量化后 g=g' 的概率：pdf（g, g'）积分
+% 脟贸脕驴禄炉潞贸 g=g' 碌脛赂脜脗脢拢潞pdf拢篓g, g'拢漏禄媒路脰
 % p_gg = 0;
 % start_point = 1;
 % for i = 1:length(region)-1
@@ -58,10 +58,10 @@ X = [X_g1 X_g2] / 1000;
 %     
 %     start_point = start_point + num_range - 1;
 % end
-% disp('概率密度估计法P(g=g)=');
+% disp('赂脜脗脢脙脺露脠鹿脌录脝路篓P(g=g)=');
 % disp(p_gg)
 
-% 求量化后 g=g' 的概率：计数
+% 脟贸脕驴禄炉潞贸 g=g' 碌脛赂脜脗脢拢潞录脝脢媒
 sum_gg = zeros(1, length(region) - 1);
 X = X';
 [d_gg, num_X] = size(X);
@@ -93,10 +93,10 @@ for i = 1:length(region)-1
 end
 
 p_gg_2 = sum(sum_gg) / num_X;
-disp('计数法P(g=g)=');
+disp('录脝脢媒路篓P(g=g)=');
 disp(p_gg_2)
 
-% 求haming(g, g')的概率分布
+% 脟贸haming(g, g')碌脛赂脜脗脢路脰虏录
 g1_bitString = 2 * ones(1, N_b);
 g2_bitString = 2 * ones(1, N_b);
 hamming = zeros(1, N_b + 1);
@@ -123,7 +123,7 @@ for i = 1:num_X
 end
 probility_hamming_single = hamming / num_X;
 
-% 求Y的概率分布，Y取值为hamming(key_g, key_g')
+% 脟贸Y碌脛赂脜脗脢路脰虏录拢卢Y脠隆脰碌脦陋hamming(key_g, key_g')
 i = 1;
 indices = ones(1, N_b+1);
 space = repmat((0:1:num_ipi), N_b+1, 1);
@@ -171,7 +171,7 @@ while i <= size(space, 1)
     end
 end
 
-% 求key_g = key_g'的成功率
+% 脟贸key_g = key_g'碌脛鲁脡鹿娄脗脢
 match_key_gg = 0;
 for i = 1:num_coder_capacity+1
     match_key_gg = match_key_gg + probility_hamming_mul(i);
@@ -179,9 +179,9 @@ end
 disp('P(key_g=key_g)=');
 disp(match_key_gg)
 
-% g & i_g的求解 %
+% g & i_g碌脛脟贸陆芒 %
 
-% 求（g, i_g）的成功匹配概率：g与i_g独立同分布且为正态分布
+% 脟贸拢篓g, i_g拢漏碌脛鲁脡鹿娄脝楼脜盲赂脜脗脢拢潞g脫毛i_g露脌脕垄脥卢路脰虏录脟脪脦陋脮媒脤卢路脰虏录
 p_gi_g = 0;
 pdf_gi_g = @(x, y)(2.* pi.* S_g.^2).^(-1) .* exp((-1/2) .* ((x - m_g).^2 + (y - m_g).^2) / (S_g.^2));
 for i = 1:length(region)-1
@@ -190,7 +190,7 @@ end
 disp('P(g=i_g)=');
 disp(p_gi_g)
 
-% 求hamming(g, i_g)的概率分布
+% 脟贸hamming(g, i_g)碌脛赂脜脗脢路脰虏录
 probility_hamming_single_imposter = zeros(1, N_b+1);
 
 g_bitString = 2 * ones(1, N_b);
@@ -215,7 +215,7 @@ for i = 1:length(region)-1
    end
 end
 
-% 求Y的概率分布，Y取值为hamming(key_g, key_i_g)
+% 脟贸Y碌脛赂脜脗脢路脰虏录拢卢Y脠隆脰碌脦陋hamming(key_g, key_i_g)
 i = 1;
 indices = ones(1, N_b+1);
 space = repmat((0:1:num_ipi), N_b+1, 1);
@@ -263,7 +263,7 @@ while i <= size(space, 1)
     end
 end
 
-% 求key_g = key_i_g的成功率
+% 脟贸key_g = key_i_g碌脛鲁脡鹿娄脗脢
 match_key_gi_g = 0;
 for i = 1:num_coder_capacity+1
     match_key_gi_g = match_key_gi_g + probility_hamming_mul_imposter(i);

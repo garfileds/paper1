@@ -61,3 +61,9 @@ def GetFileList(FindPath, FlagStr=[]):
         FileList.sort()
 
     return FileList
+
+def int2bin(n, count=10):
+    '''
+    @fn returns the binary of integer n, using count number of digits
+    '''
+    return "".join([str((n >> y) & 1) for y in range(count-1, -1, -1)])

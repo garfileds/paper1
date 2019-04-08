@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 # Python实现正态分布
 
 import numpy as np
@@ -35,8 +37,8 @@ plt.annotate('10', xy=(-2.575, 0.2), xytext=(0.5, 0.2))
 plt.annotate('00', xy=(-2.575, 0.2), xytext=(2.5, 0.2))
 
 # 坐标轴标记
-plt.xlabel('特征空间')
-plt.ylabel('概率')
+plt.xlabel('Variable Space')
+plt.ylabel('Probability Density')
 
 plt.xlim(-4, 4)
 plt.ylim(0, 0.4)
